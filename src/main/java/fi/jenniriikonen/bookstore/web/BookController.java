@@ -13,14 +13,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import fi.jenniriikonen.bookstore.domain.Book;
 import fi.jenniriikonen.bookstore.domain.BookRepository;
+import fi.jenniriikonen.bookstore.domain.CategoryRepository;
 
 
 @Controller
 
 public class BookController {
-	//Reporistory will be injected to controller
+	//Reporistories will be injected to controller
 	@Autowired
 	private BookRepository repository;
+	
+	@Autowired
+	private CategoryRepository crepository;
 	
 	//url booklist
 	@RequestMapping("/booklist") 
@@ -34,6 +38,7 @@ public class BookController {
     @RequestMapping(value = "/add")
     public String addStudent(Model model){
     	model.addAttribute("book", new Book());
+    	model.addAttribute("categories", crepository.findAll());
         return "addbook";
     }     
     
