@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Book {
 	@Id
@@ -36,6 +38,8 @@ public class Book {
 	//Joining category table to book-table
 	@ManyToOne
 	@JoinColumn(name =  "categoryid")
+	//Need for REST to work
+	@JsonBackReference
 	private Category category;
 	
 

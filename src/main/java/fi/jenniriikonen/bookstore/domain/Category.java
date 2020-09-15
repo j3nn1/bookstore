@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 
 @Entity
@@ -19,6 +21,8 @@ public class Category {
 	private long categoryid;
 	private String name;
 	
+	//Need for REST to work
+	@JsonBackReference
 	//One to many mapped by category to Book. 
 	//Attribute is list hence one category may include many books
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
