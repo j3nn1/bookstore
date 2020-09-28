@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<title>Booklist</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+	<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
 	<h1>List of books</h1>
+	<!-- Logout is handled by Spring boot security -->
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
+		
 	<table>
 		<tbody>
 			<!--This will loop through books (given in control)  -->
@@ -16,14 +22,16 @@
 				<td th:text="${book.isbn}">
 				<td th:text="${book.prize}">
 				<td th:text="${book.category.name}">
-				<td><a th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>
-				<td><a th:href="@{/edit/{id}(id=${book.id})}">Edit</a></td>  
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${book.id})}">Edit</a></td>  
 				
 				  
 			</tr>
 		</tbody>
 	</table>
 	 <a href="/add">Add book</a>   
+	 
+	 		
 
 </body>
 </html>
